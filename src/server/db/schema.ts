@@ -18,17 +18,18 @@ import {
  */
 export const createTable = pgTableCreator((name) => `next-gallery_${name}`);
 
-export const posts = createTable(
-  "post",
+export const images = createTable(
+  "image",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull(),
+    url: varchar("url", { length: 1024 }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt"),
+    updatedAt: timestamp("updatedAt").default(sql`CURRENT_TIMESTAMP`),
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );
