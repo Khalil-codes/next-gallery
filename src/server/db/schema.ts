@@ -27,6 +27,9 @@ export const images = createTable(
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
+
+    userId: varchar("userId", { length: 256 }).notNull(),
+
     updatedAt: timestamp("updatedAt").default(sql`CURRENT_TIMESTAMP`),
   },
   (example) => ({
