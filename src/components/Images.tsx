@@ -1,11 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import { db } from "~/server/db";
+import { getMyImages } from "~/server/queries";
 
 const Images = async () => {
-  const images = await db.query.images.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
+  const images = await getMyImages();
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
       {images.map((item) => (
