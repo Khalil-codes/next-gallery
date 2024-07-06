@@ -1,16 +1,25 @@
-import "~/styles/globals.css";
+import "@/styles/globals.css";
 import "@uploadthing/react/styles.css";
 
-import { Inter } from "next/font/google";
-import Navbar from "~/components/Navbar";
+import { Bricolage_Grotesque, Space_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import Header from "@/app/_components/Header";
+import { cn } from "@/lib/utils";
+import Footer from "./_components/Footer";
 
-const inter = Inter({
+const fontHeading = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-sans",
+  display: "swap",
+  variable: "--font-heading",
+});
+const fontBody = Space_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-body",
+  weight: ["400", "700"],
 });
 
 export const metadata = {
@@ -39,12 +48,15 @@ export default function RootLayout({
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
         <body
-          className={`font-sans ${inter.variable} container m-auto flex min-h-screen flex-col gap-6 bg-gradient-to-b from-[#2e026d] to-[#15162c] p-5 text-white lg:p-7`}
+          className={cn("antialiased", fontHeading.variable, fontBody.variable)}
         >
-          <Navbar links={[{ text: "Test", href: "/test" }]} allowAuth />
-          {children}
+          <Header links={[{ text: "Test", href: "/test" }]} allowAuth />
+          <main className="container m-auto min-h-[calc(100dvh-70px)]">
+            {children}
+          </main>
           {modal}
           <div id="modal-root" />
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

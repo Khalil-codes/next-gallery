@@ -1,17 +1,17 @@
 import React from "react";
-import { getImage } from "~/server/queries";
 import { Modal } from "./modal";
-import Image from "next/image";
+import ImageDetail from "@/app/_components/ImageDetail";
 
 const ImagePage = async ({ params: { id } }: { params: { id: string } }) => {
-  const idAsNumber = Number(id);
-  if (Number.isNaN(idAsNumber)) throw Error("Invalid ID provided");
-
-  const image = await getImage(idAsNumber);
-
   return (
-    <Modal>
-      <Image src={image.url} alt={image.name} width={400} height={400} />
+    <Modal
+      dialog={{
+        content: {
+          className: "gap-0 max-w-[70vw] max-h-[70vh] overflow-auto",
+        },
+      }}
+    >
+      <ImageDetail id={id} />
     </Modal>
   );
 };

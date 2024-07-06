@@ -1,17 +1,11 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Images from "~/components/Images";
+import Images from "@/app/_components/Images";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   return (
-    <main>
-      <SignedOut>
-        <p className="text-center text-2xl font-bold">Please Sign In</p>
-      </SignedOut>
-      <SignedIn>
-        <Images />
-      </SignedIn>
-    </main>
+    <section className="grid grid-cols-2 gap-4 px-4 py-8 sm:grid-cols-3 md:px-6">
+      <Images />
+    </section>
   );
 }

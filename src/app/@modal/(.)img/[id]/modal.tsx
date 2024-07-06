@@ -1,33 +1,37 @@
 "use client";
 
-import { type ElementRef, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import type { DialogContentProps, DialogProps } from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
 
-export function Modal({ children }: { children: React.ReactNode }) {
+type Props = {
+  children: React.ReactNode;
+  dialog?: Partial<{
+    root: DialogProps;
+    content: DialogContentProps;
+  }>;
+};
+
+export function Modal({ children, dialog }: Props) {
   const router = useRouter();
-  const dialogRef = useRef<ElementRef<"dialog">>(null);
 
-  useEffect(() => {
-    if (!dialogRef.current?.open) {
-      dialogRef.current?.showModal();
+  function onDismiss(open: boolean) {
+    if (!open) {
+      router.back();
     }
-  }, []);
-
-  function onDismiss() {
-    router.back();
   }
 
   return createPortal(
-    <dialog
-      ref={dialogRef}
-      className="h-screen w-screen bg-zinc-900/50 backdrop-blur-sm"
-      aria-label="modal"
-      onClose={onDismiss}
-    >
-      {children}
-      <button onClick={onDismiss} className="close-button" />
-    </dialog>,
+    <Dialog {...dialog?.root} open onOpenChange={onDismiss} modal>
+      <DialogContent
+        {...dialog?.content}
+        className={cn("max-w-[60vw] p-0", dialog?.content?.className)}
+      >
+        {children}
+      </DialogContent>
+    </Dialog>,
     document.getElementById("modal-root")!,
   );
 }
