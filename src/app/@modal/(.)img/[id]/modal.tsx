@@ -3,7 +3,11 @@
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import type { DialogContentProps, DialogProps } from "@radix-ui/react-dialog";
+import {
+  DialogTitle,
+  type DialogContentProps,
+  type DialogProps,
+} from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -25,6 +29,7 @@ export function Modal({ children, dialog }: Props) {
 
   return createPortal(
     <Dialog {...dialog?.root} open onOpenChange={onDismiss} modal>
+      <DialogTitle className="sr-only">Dialog Modal</DialogTitle>
       <DialogContent
         {...dialog?.content}
         className={cn("max-w-[60vw] p-0", dialog?.content?.className)}
