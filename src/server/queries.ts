@@ -3,12 +3,12 @@ import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
 
 export const getMyImages = async () => {
-  const user = auth();
+  // const user = auth();
 
-  if (!user.userId) throw new Error("Unauthorized");
+  // if (!user.userId) throw new Error("Unauthorized");
 
   const images = await db.query.images.findMany({
-    where: (model, { eq }) => eq(model.userId, user.userId),
+    // where: (model, { eq }) => eq(model.userId, user.userId),
     orderBy: (model, { desc }) => desc(model.id),
   });
 
