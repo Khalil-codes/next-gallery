@@ -2,11 +2,11 @@
 import { DownloadIcon, HeartIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  HybridTooltip,
+  HybridTooltipContent,
+  HybridTooltipTrigger,
+} from "@/components/ui/hybrid-tooltip";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { ShareIcon } from "lucide-react";
 import React from "react";
 
@@ -19,8 +19,8 @@ const Actions = () => {
       </Button>
       <div className="flex items-center gap-2">
         <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
+          <HybridTooltip>
+            <HybridTooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
@@ -29,13 +29,13 @@ const Actions = () => {
                 <HeartIcon className="h-4 w-4" />
                 <span className="sr-only">Like</span>
               </Button>
-            </TooltipTrigger>
-            <TooltipContent>Like</TooltipContent>
-          </Tooltip>
+            </HybridTooltipTrigger>
+            <HybridTooltipContent>Like</HybridTooltipContent>
+          </HybridTooltip>
         </TooltipProvider>
         <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
+          <HybridTooltip>
+            <HybridTooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
@@ -44,9 +44,9 @@ const Actions = () => {
                 <ShareIcon className="h-4 w-4" />
                 <span className="sr-only">Share</span>
               </Button>
-            </TooltipTrigger>
-            <TooltipContent>Share</TooltipContent>
-          </Tooltip>
+            </HybridTooltipTrigger>
+            <HybridTooltipContent>Share</HybridTooltipContent>
+          </HybridTooltip>
         </TooltipProvider>
       </div>
     </>
